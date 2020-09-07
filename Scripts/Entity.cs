@@ -9,7 +9,6 @@ public class Entity : MonoBehaviour
 
     public bool isJumping = false;
 
-
     public Entity(Transform Player, Rigidbody2D rg)
     {
         if (Player != null)

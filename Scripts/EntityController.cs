@@ -9,7 +9,6 @@ public class EntityController : MonoBehaviour
 
     public Rigidbody2D rigidbody;
     private Animator animatorController;
-    public BoxCollider2D entityCollider;
     private Entity entity;
 
     private MoveDirection direction = MoveDirection.Right;
