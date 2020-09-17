@@ -6,7 +6,8 @@ public class Entity : MonoBehaviour
 {
     private Transform player;
     private Rigidbody2D rigidbody;
-
+    
+    public bool isFlip = false;
     public bool isJumping = false;
 
     public Entity(Transform Player, Rigidbody2D rg)
@@ -36,6 +37,11 @@ public class Entity : MonoBehaviour
             rigidbody.AddForce(Vector2.up * jumpForce);
             isJumping = true;
         }
+    }
+
+    public void Flip()
+    {
+        player.Rotate(0f, 180f, 0f);
     }
 
     

@@ -13,6 +13,8 @@ public class EntityController : MonoBehaviour
 
     private MoveDirection direction = MoveDirection.Right;
 
+    private bool isRightDir = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,11 @@ public class EntityController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.D))
         {
+            if (!isRightDir)
+            {
+                entity.Flip();
+                isRightDir = true;
+            }
             entity.MoveRight(speed);
             direction = MoveDirection.Right;
             if (!entity.isJumping)
@@ -37,43 +44,34 @@ public class EntityController : MonoBehaviour
         } 
         else if (Input.GetKey(KeyCode.A))
         {
+            if (isRightDir)
+            {
+                entity.Flip();
+                isRightDir = false;
+            }
             entity.MoveLeft(speed);
             direction = MoveDirection.Left;
             if (!entity.isJumping)
             {
-                animatorController.Play("walk_left");
-                
-            } else
+                animatorController.Play("walk_right");
+            }
+            else
             {
-                animatorController.Play("jump_left");
+                animatorController.Play("jump_right");
             }
 
         } else
         {
             if (!entity.isJumping) 
             {
-                if (direction == MoveDirection.Right)
-                {
-                    animatorController.Play("idle_right");
-                } else
-                {
-                    animatorController.Play("idle_left");
-                }
-                
+                animatorController.Play("idle_right");
             }
                 
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
             entity.Jump(jumpForce);
-            if (direction == MoveDirection.Right)
-            {
-                animatorController.Play("jump_right");
-            } else
-            {
-                animatorController.Play("jump_left");
-            }
-            
+            animatorController.Play("jump_right");
         }
 
 

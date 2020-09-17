@@ -7,6 +7,12 @@ public class Weapon : MonoBehaviour
     public Transform firePoint;
     public GameObject bullet;
 
+
+    void Start()
+    {
+        
+    }
+
     // Update is called once per frame
     void Update()
     {
