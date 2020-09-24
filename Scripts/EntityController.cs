@@ -11,8 +11,6 @@ public class EntityController : MonoBehaviour
     private Animator animatorController;
     private Entity entity;
 
-    private MoveDirection direction = MoveDirection.Right;
-
     private bool isRightDir = true;
 
     // Start is called before the first frame update
@@ -33,7 +31,6 @@ public class EntityController : MonoBehaviour
                 isRightDir = true;
             }
             entity.MoveRight(speed);
-            direction = MoveDirection.Right;
             if (!entity.isJumping)
             {
                 animatorController.Play("walk_right");
@@ -50,7 +47,6 @@ public class EntityController : MonoBehaviour
                 isRightDir = false;
             }
             entity.MoveLeft(speed);
-            direction = MoveDirection.Left;
             if (!entity.isJumping)
             {
                 animatorController.Play("walk_right");
@@ -74,19 +70,6 @@ public class EntityController : MonoBehaviour
             animatorController.Play("jump_right");
         }
 
-
-        // Player's breaking 
-        if ((Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.A)) && !entity.isJumping)
-        {
-            if (direction == MoveDirection.Right)
-            {
-                rigidbody.velocity = new Vector2(1, rigidbody.velocity.y);
-            } else
-            {
-                rigidbody.velocity = new Vector2(-1, rigidbody.velocity.y);
-            }
-            
-        }
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
@@ -95,11 +78,10 @@ public class EntityController : MonoBehaviour
         {
             entity.isJumping = false;
         }
-    }
 
-    enum MoveDirection
-    {
-        Left,
-        Right
+        if (collision.gameObject.tag == "wall")
+        {
+            entity.WallCollision(isRightDir);
+        }
     }
 }

@@ -21,12 +21,15 @@ public class Entity : MonoBehaviour
 
     public void MoveRight(float speed)
     {
-        rigidbody.AddForce(Vector2.right * speed);
+        player.position += Vector3.right * speed * Time.deltaTime;
+        //rigidbody.AddForce(Vector2.right * speed);
     }
 
     public void MoveLeft(float speed)
     {
-        rigidbody.AddForce(Vector2.left * speed);
+        player.position += Vector3.left * speed * Time.deltaTime;
+        
+        //rigidbody.AddForce(Vector2.left * speed);
     }
 
     
@@ -44,7 +47,18 @@ public class Entity : MonoBehaviour
         player.Rotate(0f, 180f, 0f);
     }
 
-    
+    public void WallCollision(bool isRightDir)
+    {
+        if (isRightDir)
+        {
+            player.position += Vector3.left * Time.deltaTime;
+            Debug.Log("going left");
+        } else
+        {
+            player.position += Vector3.right * Time.deltaTime;
+            Debug.Log("going right");
+        }
+    }
 
     void Update()
     {
